@@ -6,7 +6,7 @@
   <title>Signature de Contrat - Mathias Marine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * { 
       margin: 0; 
@@ -15,17 +15,17 @@
     }
     
     body {
-      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #f5f7fa;
+      font-family: 'Roboto Condensed', 'Arial Narrow', 'Helvetica Narrow', sans-serif;
+      background: #ffffff;
       min-height: 100vh;
-      color: #2c3e50;
+      color: #1a1a1a;
     }
 
     /* Header avec logo */
     .top-header {
       background: white;
-      border-bottom: 3px solid #003366;
-      padding: 20px 0;
+      border-bottom: 2px solid #82D2E5;
+      padding: 12px 0;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
@@ -39,14 +39,14 @@
     }
 
     .logo-section img {
-      height: 60px;
+      height: 45px;
       width: auto;
     }
 
     .contact-info {
       text-align: right;
       font-size: 14px;
-      color: #666;
+      color: #333;
     }
 
     .contact-info div {
@@ -54,12 +54,21 @@
     }
 
     .contact-info strong {
-      color: #003366;
+      color: #82D2E5;
+    }
+
+    .contact-info a {
+      color: #82D2E5;
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
     }
 
     /* Hero Section avec image */
     .hero {
-      background: linear-gradient(135deg, rgba(0, 51, 102, 0.95) 0%, rgba(0, 102, 204, 0.9) 100%), 
+      background: linear-gradient(135deg, rgba(130, 210, 229, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%), 
                   url('marina.jpg') center/cover no-repeat;
       color: white;
       padding: 60px 20px;
@@ -96,7 +105,7 @@
 
     .hero p {
       font-size: 20px;
-      font-weight: 300;
+      font-weight: 400;
       opacity: 0.95;
     }
 
@@ -118,10 +127,10 @@
     }
 
     .card-header {
-      background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+      background: linear-gradient(135deg, #82D2E5 0%, #000000 100%);
       color: white;
       padding: 25px 30px;
-      border-bottom: 3px solid #0052a3;
+      border-bottom: 3px solid #000000;
     }
 
     .card-header h2 {
@@ -158,6 +167,7 @@
       border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
+      font-family: 'Roboto Condensed', sans-serif;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
@@ -168,29 +178,32 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+      background: linear-gradient(135deg, #82D2E5 0%, #000000 100%);
       color: white;
-      box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+      box-shadow: 0 4px 15px rgba(130, 210, 229, 0.3);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 51, 102, 0.4);
+      box-shadow: 0 6px 20px rgba(130, 210, 229, 0.4);
+      background: linear-gradient(135deg, #000000 0%, #82D2E5 100%);
     }
 
     .btn-success {
-      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      background: linear-gradient(135deg, #82D2E5 0%, #000000 100%);
       color: white;
-      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+      box-shadow: 0 4px 15px rgba(130, 210, 229, 0.3);
     }
 
     .btn-success:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+      box-shadow: 0 6px 20px rgba(130, 210, 229, 0.4);
+      background: linear-gradient(135deg, #000000 0%, #82D2E5 100%);
     }
 
     .btn:disabled {
-      background: #ccc;
+      background: #999;
+      color: #ccc;
       cursor: not-allowed;
       transform: none;
       box-shadow: none;
@@ -215,8 +228,9 @@
       display: block;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #2c3e50;
+      color: #1a1a1a;
       font-size: 15px;
+      font-family: 'Roboto Condensed', sans-serif;
     }
 
     .form-group input {
@@ -225,14 +239,14 @@
       border: 2px solid #e0e6ed;
       border-radius: 8px;
       font-size: 15px;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto Condensed', sans-serif;
       transition: border-color 0.3s;
     }
 
     .form-group input:focus {
       outline: none;
-      border-color: #003366;
-      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+      border-color: #82D2E5;
+      box-shadow: 0 0 0 3px rgba(130, 210, 229, 0.1);
     }
 
     /* Checkbox */
@@ -257,7 +271,7 @@
       width: 24px;
       height: 24px;
       cursor: pointer;
-      accent-color: #003366;
+      accent-color: #82D2E5;
     }
 
     /* Alert */
@@ -308,19 +322,9 @@
       to { opacity: 1; }
     }
 
-    .success-icon {
-      font-size: 120px;
-      margin-bottom: 25px;
-      animation: bounce 1s ease;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
 
     .success h2 {
-      color: #28a745;
+      color: #82D2E5;
       font-size: 36px;
       margin-bottom: 20px;
       font-weight: 600;
@@ -336,14 +340,14 @@
     /* Services Info */
     .services-info {
       background: #f8f9fa;
-      border-left: 4px solid #003366;
+      border-left: 4px solid #82D2E5;
       border-radius: 8px;
       padding: 25px;
       margin-top: 30px;
     }
 
     .services-info h3 {
-      color: #003366;
+      color: #82D2E5;
       margin-bottom: 15px;
       font-size: 20px;
       display: flex;
@@ -367,7 +371,7 @@
 
     .services-info li::before {
       content: '✓';
-      background: #28a745;
+      background: #82D2E5;
       color: white;
       border-radius: 50%;
       width: 24px;
@@ -381,28 +385,121 @@
 
     /* Footer */
     .footer {
-      background: #2c3e50;
+      background: #000000;
       color: white;
-      padding: 40px 20px;
+      padding: 50px 20px 30px;
       margin-top: 60px;
-      text-align: center;
     }
 
-    .footer p {
-      margin-bottom: 10px;
-      opacity: 0.9;
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .footer-logo img {
+      height: 70px;
+      width: auto;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .footer-content p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+
+    .footer-content strong {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .footer-social {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 15px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icon:hover {
+      background: #82D2E5;
+      transform: translateY(-2px);
+    }
+
+    .social-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
     }
 
     .footer a {
-      color: #0066cc;
+      color: #ffffff;
       text-decoration: none;
     }
 
     .footer a:hover {
+      color: #82D2E5;
       text-decoration: underline;
     }
 
+    .footer-copyright {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
     /* Responsive */
+    @media (max-width: 1024px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        display: flex;
+        justify-content: center;
+      }
+
+      .footer-social {
+        align-items: center;
+      }
+
+      .social-icons {
+        justify-content: center;
+      }
+    }
+
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 32px;
@@ -423,7 +520,7 @@
       }
 
       .logo-section img {
-        height: 50px;
+        height: 38px;
       }
 
       .pdf-viewer iframe {
@@ -437,6 +534,103 @@
       .card-body {
         padding: 20px;
       }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        text-align: center;
+      }
+
+      .footer-logo img {
+        height: 60px;
+      }
+
+      .footer-content {
+        align-items: center;
+      }
+
+      .footer-social {
+        align-items: center;
+        width: 100%;
+      }
+
+      .social-icons {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .social-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .social-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 40px 15px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .card-header h2 {
+        font-size: 20px;
+      }
+
+      .card-header {
+        padding: 20px;
+      }
+
+      .card-body {
+        padding: 15px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+
+      .footer {
+        padding: 30px 15px 20px;
+      }
+
+      .footer-logo img {
+        height: 50px;
+      }
+
+      .footer-content p {
+        font-size: 13px;
+      }
+
+      .social-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .social-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero p {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
@@ -449,9 +643,9 @@
         <img src="https://mathiasmarine.com/static/frontend/Traction/MathiasMarine/fr_FR/images/logo_mathias_marine_full_black.png" alt="Mathias Marine Logo">
       </div>
       <div class="contact-info">
-        <div><strong>📞 Téléphone:</strong> 1-450-467-3868</div>
-        <div><strong>📍 Adresse:</strong> 874 Chemin des Patriotes, Saint-Mathias-sur-le-Richelieu, QC</div>
-        <div><strong>🌐 Web:</strong> <a href="https://mathiasmarine.com" target="_blank" style="color: #003366;">mathiasmarine.com</a></div>
+        <div><strong>Téléphone:</strong> 450-467-3868</div>
+        <div><strong>Adresse:</strong> 874 chemin des patriotes, Saint-Mathias-sur-le-richelieu, QC</div>
+        <div><strong>Web:</strong> <a href="https://mathiasmarine.com" target="_blank" style="color: #82D2E5;">mathiasmarine.com</a></div>
       </div>
     </div>
   </div>
@@ -459,7 +653,7 @@
   <!-- Hero Section -->
   <div class="hero">
     <div class="hero-content">
-      <h1>🚢 Contrat de Location de Quai</h1>
+      <h1>Contrat de Location de Quai</h1>
       <p>Finalisez votre réservation en signant votre contrat</p>
     </div>
   </div>
@@ -470,7 +664,7 @@
     <!-- PDF Card -->
     <div class="card" id="main-content">
       <div class="card-header">
-        <h2>📄 Votre Contrat de Location</h2>
+        <h2>Votre Contrat de Location</h2>
       </div>
       <div class="card-body">
         <div class="pdf-viewer">
@@ -479,7 +673,7 @@
         
         <div class="actions">
           <button class="btn btn-primary" onclick="downloadPDF()">
-            📥 Télécharger le Contrat
+            Télécharger le Contrat
           </button>
         </div>
       </div>
@@ -488,7 +682,7 @@
     <!-- Signature Card -->
     <div class="card" id="signature-card">
       <div class="card-header">
-        <h2>✍️ Signature Électronique</h2>
+        <h2>Signature Électronique</h2>
       </div>
       <div class="card-body">
         <form id="sign-form" onsubmit="submitSignature(event)">
@@ -516,7 +710,7 @@
           <div id="error" class="alert alert-error"></div>
 
           <button type="submit" class="btn btn-success" id="submit-btn" style="width: 100%; font-size: 18px; padding: 18px;">
-            ✅ Signer le Contrat
+            Signer le Contrat
           </button>
         </form>
       </div>
@@ -526,13 +720,12 @@
     <div class="card" style="display: none;" id="success-card">
       <div class="card-body">
         <div class="success active" id="success">
-          <div class="success-icon">🎉</div>
           <h2>Contrat Signé avec Succès!</h2>
           <p style="max-width: 600px; margin: 0 auto 30px;">
             Votre contrat de location a été signé électroniquement. Vous pouvez maintenant télécharger votre copie signée.
           </p>
           <button class="btn btn-success" onclick="downloadSignedPDF()" style="max-width: 400px; margin: 0 auto 20px;">
-            📥 Télécharger le Contrat Signé
+            Télécharger le Contrat Signé
           </button>
           <p style="color: #666; font-size: 16px; margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
             <strong>Prochaine étape:</strong> Vous recevrez le lien de paiement par SMS dans quelques instants.
@@ -545,12 +738,44 @@
 
   <!-- Footer -->
   <div class="footer">
-    <p><strong>Mathias Marine</strong> - Concessionnaire de bateaux depuis 1989</p>
-    <p>1200 Rue Nobel, Boucherville, QC J4B 5L2</p>
-    <p>Tél: 1-855-642-8442 | <a href="https://mathiasmarine.com">mathiasmarine.com</a></p>
-    <p style="margin-top: 20px; opacity: 0.7; font-size: 13px;">
-      © 2025 Mathias Marine. Tous droits réservés.
-    </p>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="https://mathiasmarine.com/media/wysiwyg/11_2.png" alt="Mathias Marine Logo">
+      </div>
+      <div class="footer-content">
+        <p><strong>Mathias Marine</strong> - Concessionnaire de bateaux depuis 1989</p>
+        <p>874 chemin des patriotes<br>Saint-Mathias-sur-le-richelieu, QC</p>
+        <p>Tél: 450-467-3868</p>
+        <p><a href="https://mathiasmarine.com">mathiasmarine.com</a></p>
+      </div>
+      <div class="footer-social">
+        <div class="social-icons">
+          <a href="https://www.facebook.com/marinasaintmathias/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/mathias_marine/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@Mathiasmarinesports" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@mathias__marine" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p>© 2025 Mathias Marine. Tous droits réservés.</p>
+    </div>
   </div>
 
   <script>
@@ -594,7 +819,7 @@
       
       // UI Loading state
       btn.disabled = true;
-      btn.innerHTML = '⏳ Génération du contrat signé...';
+      btn.innerHTML = 'Génération du contrat signé...';
       errorEl.classList.remove('active');
       
       try {
@@ -630,10 +855,10 @@
         }
       } catch (error) {
         console.error('Signature error:', error);
-        errorEl.textContent = '❌ Erreur réseau ou serveur. Veuillez réessayer dans quelques instants.';
+        errorEl.textContent = 'Erreur réseau ou serveur. Veuillez réessayer dans quelques instants.';
         errorEl.classList.add('active');
         btn.disabled = false;
-        btn.innerHTML = '✅ Signer le Contrat';
+        btn.innerHTML = 'Signer le Contrat';
       }
     }
   </script>
