@@ -531,41 +531,19 @@
       }
 
       .pdf-viewer {
-        overflow: visible;
+        overflow: hidden;
         position: relative;
-        height: auto;
       }
 
       .pdf-viewer-wrapper {
-        overflow-y: scroll;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: 90vh;
         width: 100%;
-        position: relative;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar-thumb {
-        background: #82D2E5;
-        border-radius: 10px;
+        overflow: hidden;
       }
 
       .pdf-viewer iframe {
-        height: 1800px;
-        min-height: 1800px;
+        height: 500px;
         width: 100%;
         display: block;
-        pointer-events: auto;
         border: none;
       }
 
@@ -665,41 +643,19 @@
       }
 
       .pdf-viewer {
-        overflow: visible;
+        overflow: hidden;
         position: relative;
-        height: auto;
       }
 
       .pdf-viewer-wrapper {
-        overflow-y: scroll;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: 85vh;
         width: 100%;
-        position: relative;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-
-      .pdf-viewer-wrapper::-webkit-scrollbar-thumb {
-        background: #82D2E5;
-        border-radius: 10px;
+        overflow: hidden;
       }
 
       .pdf-viewer iframe {
-        height: 1700px;
-        min-height: 1700px;
+        height: 400px;
         width: 100%;
         display: block;
-        pointer-events: auto;
         border: none;
       }
     }
@@ -750,6 +706,14 @@
       <div class="card-body">
         <div class="pdf-viewer">
           <div class="pdf-viewer-wrapper">
+            <div id="mobile-pdf-fallback" style="display:none; padding:16px;">
+              <p style="margin-bottom:12px; color:#495057;">
+                Sur mobile, ouvrez le contrat en plein écran pour une lecture optimale.
+              </p>
+              <a id="open-pdf-btn" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                Ouvrir le contrat
+              </a>
+            </div>
             <iframe id="pdf-frame" src="" title="Visualisateur de contrat"></iframe>
           </div>
         </div>
@@ -869,23 +833,29 @@
     
     let signedPdfUrl = '';
     
-    // Detect mobile device
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    // Detect iOS devices
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    // Load PDF into iframe with mobile-friendly parameters
+    // Load PDF with iOS detection and fallback
     if (pdfUrl) {
       const pdfFrame = document.getElementById('pdf-frame');
-      // For mobile, ensure the PDF allows scrolling
-      // Add view parameter to help with mobile viewing
-      let finalPdfUrl = pdfUrl;
-      if (isMobile && !pdfUrl.includes('#view=')) {
-        // Try to add parameters that help with mobile viewing
-        finalPdfUrl = pdfUrl + (pdfUrl.includes('#') ? '&' : '#') + 'view=FitH';
-      }
-      pdfFrame.src = finalPdfUrl;
-      // Ensure iframe can be scrolled on mobile
-      if (isMobile) {
-        pdfFrame.setAttribute('scrolling', 'yes');
+      const fallback = document.getElementById('mobile-pdf-fallback');
+      const openBtn = document.getElementById('open-pdf-btn');
+      
+      // Always prepare the button
+      openBtn.href = pdfUrl;
+      
+      if (isIOS) {
+        // iOS: don't embed PDF in iframe (avoids white screen issue)
+        pdfFrame.style.display = 'none';
+        fallback.style.display = 'block';
+      } else {
+        // Desktop/Android: iframe OK
+        let finalPdfUrl = pdfUrl;
+        if (!finalPdfUrl.includes('#')) finalPdfUrl += '#view=FitH';
+        pdfFrame.src = finalPdfUrl;
+        pdfFrame.style.display = 'block';
+        fallback.style.display = 'none';
       }
     }
     
