@@ -152,6 +152,12 @@
       overflow: hidden;
       margin-bottom: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .pdf-viewer-wrapper {
+      width: 100%;
+      overflow: hidden;
     }
 
     .pdf-viewer iframe {
@@ -525,16 +531,42 @@
       }
 
       .pdf-viewer {
-        overflow-y: auto;
+        overflow: visible;
+        position: relative;
+        height: auto;
+      }
+
+      .pdf-viewer-wrapper {
+        overflow-y: scroll;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         max-height: 90vh;
+        width: 100%;
+        position: relative;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar-thumb {
+        background: #82D2E5;
+        border-radius: 10px;
       }
 
       .pdf-viewer iframe {
-        height: 1400px;
-        min-height: 1400px;
+        height: 1800px;
+        min-height: 1800px;
         width: 100%;
         display: block;
+        pointer-events: auto;
+        border: none;
       }
 
       .actions {
@@ -633,14 +665,42 @@
       }
 
       .pdf-viewer {
-        overflow-y: auto;
+        overflow: visible;
+        position: relative;
+        height: auto;
+      }
+
+      .pdf-viewer-wrapper {
+        overflow-y: scroll;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         max-height: 85vh;
+        width: 100%;
+        position: relative;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .pdf-viewer-wrapper::-webkit-scrollbar-thumb {
+        background: #82D2E5;
+        border-radius: 10px;
       }
 
       .pdf-viewer iframe {
-        height: 1300px;
-        min-height: 1300px;
+        height: 1700px;
+        min-height: 1700px;
+        width: 100%;
+        display: block;
+        pointer-events: auto;
+        border: none;
       }
     }
 
@@ -689,7 +749,9 @@
       </div>
       <div class="card-body">
         <div class="pdf-viewer">
-          <iframe id="pdf-frame" src="" title="Visualisateur de contrat"></iframe>
+          <div class="pdf-viewer-wrapper">
+            <iframe id="pdf-frame" src="" title="Visualisateur de contrat"></iframe>
+          </div>
         </div>
         
         <div class="actions">
@@ -807,9 +869,24 @@
     
     let signedPdfUrl = '';
     
-    // Load PDF into iframe
+    // Detect mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    
+    // Load PDF into iframe with mobile-friendly parameters
     if (pdfUrl) {
-      document.getElementById('pdf-frame').src = pdfUrl;
+      const pdfFrame = document.getElementById('pdf-frame');
+      // For mobile, ensure the PDF allows scrolling
+      // Add view parameter to help with mobile viewing
+      let finalPdfUrl = pdfUrl;
+      if (isMobile && !pdfUrl.includes('#view=')) {
+        // Try to add parameters that help with mobile viewing
+        finalPdfUrl = pdfUrl + (pdfUrl.includes('#') ? '&' : '#') + 'view=FitH';
+      }
+      pdfFrame.src = finalPdfUrl;
+      // Ensure iframe can be scrolled on mobile
+      if (isMobile) {
+        pdfFrame.setAttribute('scrolling', 'yes');
+      }
     }
     
     // Pre-fill form fields
