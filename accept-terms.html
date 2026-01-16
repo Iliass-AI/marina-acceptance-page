@@ -158,6 +158,7 @@
       width: 100%;
       height: 700px;
       border: none;
+      display: block;
     }
 
     /* Buttons */
@@ -523,8 +524,17 @@
         height: 38px;
       }
 
+      .pdf-viewer {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 90vh;
+      }
+
       .pdf-viewer iframe {
-        height: 500px;
+        height: 1400px;
+        min-height: 1400px;
+        width: 100%;
+        display: block;
       }
 
       .actions {
@@ -621,6 +631,17 @@
         width: 18px;
         height: 18px;
       }
+
+      .pdf-viewer {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 85vh;
+      }
+
+      .pdf-viewer iframe {
+        height: 1300px;
+        min-height: 1300px;
+      }
     }
 
     @media (min-width: 1440px) {
@@ -693,7 +714,7 @@
 
           <div class="form-group">
             <label for="phone">Téléphone *</label>
-            <input type="tel" id="phone" required placeholder="+1 (XXX) XXX-XXXX">
+            <input type="tel" id="phone" required placeholder="+1XXXXXXXXXX">
           </div>
 
           <div class="checkbox-group">
