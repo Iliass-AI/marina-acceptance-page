@@ -256,6 +256,59 @@
       box-shadow: 0 0 0 3px rgba(130, 210, 229, 0.1);
     }
 
+    /* Form helper note */
+    .form-note {
+      margin-top: -10px;
+      margin-bottom: 25px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(130, 210, 229, 0.12), rgba(0, 0, 0, 0.02));
+      border: 1px solid rgba(130, 210, 229, 0.45);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: #1a1a1a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-note-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #82D2E5;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-note-content strong {
+      font-weight: 700;
+    }
+
+    .form-note-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #000000;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .form-note-text {
+      margin-bottom: 4px;
+    }
+
+    .form-note-format {
+      font-size: 13px;
+      color: #333;
+    }
+    
     /* Checkbox */
     .checkbox-group {
       background: #fff3cd;
@@ -741,6 +794,22 @@
           <div class="form-group">
             <label for="phone">Téléphone *</label>
             <input type="tel" id="phone" required placeholder="+1XXXXXXXXXX">
+          </div>
+
+          <div class="form-note">
+            <div class="form-note-icon">i</div>
+            <div class="form-note-content">
+              <div class="form-note-title">Pour valider correctement votre contrat</div>
+              <p class="form-note-text">
+                Merci de vous assurer que votre <strong>nom complet</strong> et votre <strong>numéro de téléphone</strong> sont
+                exactement les mêmes que ceux utilisés dans le <strong>formulaire de collecte d’informations</strong>.
+                Cela nous permet d’associer votre contrat à la bonne réservation et de vous envoyer le lien de paiement sans délai.
+              </p>
+              <p class="form-note-format">
+                Le numéro de téléphone doit être inscrit au format international suivant&nbsp;: <strong>+1XXXXXXXXXX</strong>
+                (ex.&nbsp;: <strong>+15145551234</strong>).
+              </p>
+            </div>
           </div>
 
           <div class="checkbox-group">
