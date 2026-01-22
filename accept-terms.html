@@ -898,28 +898,30 @@
     // Extract URL parameters
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
-    const pdfUrl = decodeURIComponent(params.get('pdf_url') || '');
-    
-    let signedPdfUrl = '';
-    
+
+    // ✅ Put your real invoice endpoint here (production webhook URL)
+    const INVOICE_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/invoice';
+    const SIGNED_INVOICE_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/signed-invoice'; // optional
+
+    // Build PDF URLs from token (no pdf_url param needed anymore)
+    const pdfUrl = token ? `${INVOICE_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
+    let signedPdfUrl = token ? `${SIGNED_INVOICE_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
+
     // Detect iOS devices
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+
     // Load PDF with iOS detection and fallback
     if (pdfUrl) {
       const pdfFrame = document.getElementById('pdf-frame');
       const fallback = document.getElementById('mobile-pdf-fallback');
       const openBtn = document.getElementById('open-pdf-btn');
-      
-      // Always prepare the button
+
       openBtn.href = pdfUrl;
-      
+
       if (isIOS) {
-        // iOS: don't embed PDF in iframe (avoids white screen issue)
         pdfFrame.style.display = 'none';
         fallback.style.display = 'block';
       } else {
-        // Desktop/Android: iframe OK
         let finalPdfUrl = pdfUrl;
         if (!finalPdfUrl.includes('#')) finalPdfUrl += '#view=FitH';
         pdfFrame.src = finalPdfUrl;
@@ -927,27 +929,21 @@
         fallback.style.display = 'none';
       }
     }
-    
+
     // Pre-fill form fields
     document.getElementById('name').value = decodeURIComponent(params.get('client') || '');
     document.getElementById('phone').value = decodeURIComponent(params.get('phone') || '');
-    
+
     function downloadPDF() {
-      if(pdfUrl) {
-        window.open(pdfUrl, '_blank');
-      } else {
-        alert("URL du PDF introuvable.");
-      }
+      if (pdfUrl) window.open(pdfUrl, '_blank');
+      else alert("URL du PDF introuvable.");
     }
-    
+
     function downloadSignedPDF() {
-      if (signedPdfUrl) {
-        window.open(signedPdfUrl, '_blank');
-      } else {
-        alert("Le PDF signé n'est pas encore disponible.");
-      }
+      if (signedPdfUrl) window.open(signedPdfUrl, '_blank');
+      else alert("Le PDF signé n'est pas encore disponible.");
     }
-    
+
     async function submitSignature(event) {
       event.preventDefault();
       
@@ -975,9 +971,6 @@
         const result = await response.json();
         
         if (response.ok && result.success) {
-          // Store signed PDF URL
-          signedPdfUrl = result.signed_pdf_url;
-          
           // Hide main content and signature card
           document.getElementById('main-content').style.display = 'none';
           document.getElementById('signature-card').style.display = 'none';
