@@ -145,26 +145,125 @@
       padding: 30px;
     }
 
-    /* PDF Viewer */
-    .pdf-viewer {
-      border: 2px solid #e0e6ed;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /* PDF Modal */
+    .pdf-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .pdf-modal-overlay.active {
+      display: flex;
+    }
+
+    .pdf-modal {
+      background: white;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 1200px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
       position: relative;
+      animation: slideUp 0.3s ease;
     }
 
-    .pdf-viewer-wrapper {
-      width: 100%;
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pdf-modal-header {
+      background: linear-gradient(135deg, #82D2E5 0%, #000000 100%);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pdf-modal-header h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .pdf-modal-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      line-height: 1;
+    }
+
+    .pdf-modal-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+
+    .pdf-modal-body {
+      flex: 1;
       overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
     }
 
-    .pdf-viewer iframe {
+    .pdf-modal-iframe {
       width: 100%;
-      height: 700px;
+      height: 100%;
+      min-height: 500px;
       border: none;
       display: block;
+    }
+
+    .pdf-modal-fallback {
+      padding: 40px;
+      text-align: center;
+      display: none;
+    }
+
+    .pdf-modal-fallback.active {
+      display: block;
+    }
+
+    .pdf-modal-fallback p {
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .pdf-modal-fallback-link {
+      display: inline-block;
+      margin-top: 10px;
     }
 
     /* Buttons */
@@ -583,21 +682,24 @@
         height: 38px;
       }
 
-      .pdf-viewer {
-        overflow: hidden;
-        position: relative;
+      .pdf-modal {
+        max-height: 95vh;
       }
 
-      .pdf-viewer-wrapper {
-        width: 100%;
-        overflow: hidden;
+      .pdf-modal-header {
+        padding: 15px 20px;
       }
 
-      .pdf-viewer iframe {
-        height: 500px;
-        width: 100%;
-        display: block;
-        border: none;
+      .pdf-modal-header h3 {
+        font-size: 18px;
+      }
+
+      .pdf-modal-body {
+        min-height: 300px;
+      }
+
+      .pdf-modal-iframe {
+        min-height: 400px;
       }
 
       .actions {
@@ -695,21 +797,29 @@
         height: 18px;
       }
 
-      .pdf-viewer {
-        overflow: hidden;
-        position: relative;
+      .pdf-modal {
+        max-height: 95vh;
+        margin: 10px;
       }
 
-      .pdf-viewer-wrapper {
-        width: 100%;
-        overflow: hidden;
+      .pdf-modal-header {
+        padding: 12px 15px;
       }
 
-      .pdf-viewer iframe {
-        height: 400px;
-        width: 100%;
-        display: block;
-        border: none;
+      .pdf-modal-header h3 {
+        font-size: 16px;
+      }
+
+      .pdf-modal-body {
+        min-height: 250px;
+      }
+
+      .pdf-modal-iframe {
+        min-height: 350px;
+      }
+
+      .pdf-modal-fallback {
+        padding: 30px 20px;
       }
     }
 
@@ -757,18 +867,10 @@
         <h2>Votre Contrat de Location</h2>
       </div>
       <div class="card-body">
-        <div class="pdf-viewer">
-          <div class="pdf-viewer-wrapper">
-            <div id="mobile-pdf-fallback" style="display:none; padding:16px;">
-              <p style="margin-bottom:12px; color:#495057;">
-                Sur mobile, ouvrez le contrat en plein écran pour une lecture optimale.
-              </p>
-              <a id="open-pdf-btn" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                Ouvrir le contrat
-              </a>
-            </div>
-            <iframe id="pdf-frame" src="" title="Visualisateur de contrat"></iframe>
-          </div>
+        <div style="text-align: center; padding: 40px 20px;">
+          <button class="btn btn-primary" onclick="openPDFModal()" style="font-size: 18px; padding: 18px 40px;">
+            Ouvrir le contrat
+          </button>
         </div>
         
         <div class="actions">
@@ -894,6 +996,25 @@
     </div>
   </div>
 
+  <!-- PDF Modal -->
+  <div class="pdf-modal-overlay" id="pdf-modal-overlay" onclick="closePDFModalOnOverlay(event)">
+    <div class="pdf-modal" onclick="event.stopPropagation()">
+      <div class="pdf-modal-header">
+        <h3>Votre Contrat de Location</h3>
+        <button class="pdf-modal-close" onclick="closePDFModal()" aria-label="Fermer">×</button>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="pdf-modal-iframe" class="pdf-modal-iframe" title="Visualisateur de contrat"></iframe>
+        <div class="pdf-modal-fallback" id="pdf-modal-fallback">
+          <p>Le PDF ne peut pas être affiché dans cette fenêtre.</p>
+          <a id="pdf-modal-fallback-link" href="" target="_blank" rel="noopener noreferrer" class="btn btn-primary pdf-modal-fallback-link">
+            Ouvrir dans un nouvel onglet
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Extract URL parameters
     const params = new URLSearchParams(window.location.search);
@@ -910,25 +1031,71 @@
     // Detect iOS devices
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    // Load PDF with iOS detection and fallback
-    if (pdfUrl) {
-      const pdfFrame = document.getElementById('pdf-frame');
-      const fallback = document.getElementById('mobile-pdf-fallback');
-      const openBtn = document.getElementById('open-pdf-btn');
+    // PDF Modal functions
+    function openPDFModal() {
+      if (!pdfUrl) {
+        alert("URL du PDF introuvable.");
+        return;
+      }
 
-      openBtn.href = pdfUrl;
+      const modal = document.getElementById('pdf-modal-overlay');
+      const modalIframe = document.getElementById('pdf-modal-iframe');
+      const modalFallback = document.getElementById('pdf-modal-fallback');
+      const modalFallbackLink = document.getElementById('pdf-modal-fallback-link');
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent body scroll
+
+      // Set fallback link
+      modalFallbackLink.href = pdfUrl;
 
       if (isIOS) {
-        pdfFrame.style.display = 'none';
-        fallback.style.display = 'block';
+        // iOS doesn't support PDF in iframe well, show fallback
+        modalIframe.style.display = 'none';
+        modalFallback.classList.add('active');
       } else {
+        // Try to load PDF in iframe
         let finalPdfUrl = pdfUrl;
         if (!finalPdfUrl.includes('#')) finalPdfUrl += '#view=FitH';
-        pdfFrame.src = finalPdfUrl;
-        pdfFrame.style.display = 'block';
-        fallback.style.display = 'none';
+        modalIframe.src = finalPdfUrl;
+        modalIframe.style.display = 'block';
+        modalFallback.classList.remove('active');
+
+        // Check if PDF loaded successfully (fallback if it fails)
+        modalIframe.onerror = function() {
+          modalIframe.style.display = 'none';
+          modalFallback.classList.add('active');
+        };
       }
     }
+
+    function closePDFModal() {
+      const modal = document.getElementById('pdf-modal-overlay');
+      const modalIframe = document.getElementById('pdf-modal-iframe');
+      
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // Restore body scroll
+      
+      // Clear iframe src to stop loading
+      modalIframe.src = '';
+    }
+
+    function closePDFModalOnOverlay(event) {
+      // Close only if clicking directly on overlay (not on modal content)
+      if (event.target.id === 'pdf-modal-overlay') {
+        closePDFModal();
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('pdf-modal-overlay');
+        if (modal.classList.contains('active')) {
+          closePDFModal();
+        }
+      }
+    });
 
     // Pre-fill form fields
     document.getElementById('name').value = decodeURIComponent(params.get('client') || '');
