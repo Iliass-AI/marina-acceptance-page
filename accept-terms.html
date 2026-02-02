@@ -145,109 +145,39 @@
       padding: 30px;
     }
 
-    /* PDF Modal */
-    .pdf-modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .pdf-modal-overlay.active {
-      display: flex;
-    }
-
-    .pdf-modal {
-      background: white;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 1200px;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-      position: relative;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .pdf-modal-header {
-      background: linear-gradient(135deg, #82D2E5 0%, #000000 100%);
-      color: white;
-      padding: 20px 30px;
-      border-radius: 12px 12px 0 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pdf-modal-header h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .pdf-modal-close {
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      line-height: 1;
-    }
-
-    .pdf-modal-close:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: rotate(90deg);
-    }
-
-    .pdf-modal-body {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 400px;
-      padding: 40px;
+    /* Contract Section */
+    .contract-section {
       text-align: center;
-    }
-
-    .pdf-modal-message {
+      padding: 50px 30px;
+      background: linear-gradient(135deg, rgba(130, 210, 229, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+      border-radius: 12px;
       margin-bottom: 30px;
-      color: #666;
-      font-size: 18px;
-      line-height: 1.6;
     }
 
-    .pdf-modal-link {
-      display: inline-block;
+    .contract-section .btn {
+      font-size: 18px;
+      padding: 18px 50px;
+      margin-bottom: 20px;
+    }
+
+    .contract-note {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(130, 210, 229, 0.1);
+      border-left: 4px solid #82D2E5;
+      border-radius: 8px;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .contract-note strong {
+      color: #000000;
+      font-weight: 600;
     }
 
     /* Buttons */
@@ -666,25 +596,18 @@
         height: 38px;
       }
 
-      .pdf-modal {
-        max-height: 95vh;
+      .contract-section {
+        padding: 40px 20px;
       }
 
-      .pdf-modal-header {
-        padding: 15px 20px;
-      }
-
-      .pdf-modal-header h3 {
-        font-size: 18px;
-      }
-
-      .pdf-modal-body {
-        min-height: 300px;
-        padding: 30px 20px;
-      }
-
-      .pdf-modal-message {
+      .contract-section .btn {
         font-size: 16px;
+        padding: 16px 40px;
+      }
+
+      .contract-note {
+        font-size: 13px;
+        padding: 14px 16px;
       }
 
       .actions {
@@ -782,26 +705,21 @@
         height: 18px;
       }
 
-      .pdf-modal {
-        max-height: 95vh;
-        margin: 10px;
+      .contract-section {
+        padding: 30px 15px;
       }
 
-      .pdf-modal-header {
-        padding: 12px 15px;
-      }
-
-      .pdf-modal-header h3 {
-        font-size: 16px;
-      }
-
-      .pdf-modal-body {
-        min-height: 250px;
-        padding: 30px 20px;
-      }
-
-      .pdf-modal-message {
+      .contract-section .btn {
         font-size: 15px;
+        padding: 14px 30px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .contract-note {
+        font-size: 12px;
+        padding: 12px 14px;
+        text-align: center;
       }
     }
 
@@ -849,10 +767,13 @@
         <h2>Votre Contrat de Location</h2>
       </div>
       <div class="card-body">
-        <div style="text-align: center; padding: 40px 20px;">
-          <button class="btn btn-primary" onclick="openPDFModal()" style="font-size: 18px; padding: 18px 40px;">
-            Ouvrir le contrat
+        <div class="contract-section">
+          <button class="btn btn-primary" onclick="openContract()">
+            Ouvrir votre Contrat
           </button>
+          <div class="contract-note">
+            <strong>Note importante :</strong> Le contrat s'ouvrira dans un nouvel onglet. Veuillez le consulter et revenir dans cet onglet pour signer.
+          </div>
         </div>
         
         <div class="actions">
@@ -978,24 +899,6 @@
     </div>
   </div>
 
-  <!-- PDF Modal -->
-  <div class="pdf-modal-overlay" id="pdf-modal-overlay" onclick="closePDFModalOnOverlay(event)">
-    <div class="pdf-modal" onclick="event.stopPropagation()">
-      <div class="pdf-modal-header">
-        <h3>Votre Contrat de Location</h3>
-        <button class="pdf-modal-close" onclick="closePDFModal()" aria-label="Fermer">×</button>
-      </div>
-      <div class="pdf-modal-body">
-        <div>
-          <p class="pdf-modal-message">Le PDF ne peut pas être affiché ici.</p>
-          <a id="pdf-modal-link" href="" target="_blank" rel="noopener noreferrer" class="btn btn-primary pdf-modal-link">
-            Ouvrir dans un nouvel onglet
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // Extract URL parameters
     const params = new URLSearchParams(window.location.search);
@@ -1009,46 +912,14 @@
     const pdfUrl = token ? `${INVOICE_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
     let signedPdfUrl = token ? `${SIGNED_INVOICE_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
 
-    // PDF Modal functions
-    function openPDFModal() {
+    // Open contract in new tab
+    function openContract() {
       if (!pdfUrl) {
         alert("URL du PDF introuvable.");
         return;
       }
-
-      const modal = document.getElementById('pdf-modal-overlay');
-      const modalLink = document.getElementById('pdf-modal-link');
-
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Prevent body scroll
-
-      // Set link to PDF URL
-      modalLink.href = pdfUrl;
+      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
     }
-
-    function closePDFModal() {
-      const modal = document.getElementById('pdf-modal-overlay');
-      
-      modal.classList.remove('active');
-      document.body.style.overflow = ''; // Restore body scroll
-    }
-
-    function closePDFModalOnOverlay(event) {
-      // Close only if clicking directly on overlay (not on modal content)
-      if (event.target.id === 'pdf-modal-overlay') {
-        closePDFModal();
-      }
-    }
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        const modal = document.getElementById('pdf-modal-overlay');
-        if (modal.classList.contains('active')) {
-          closePDFModal();
-        }
-      }
-    });
 
     // Pre-fill form fields
     document.getElementById('name').value = decodeURIComponent(params.get('client') || '');
