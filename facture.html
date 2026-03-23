@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facture - Mathias Marine Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      color: #1a1a1a;
+    }
+
+    /* ── Header ── */
+    .top-header {
+      background: #1a1a1a;
+      padding: 15px 0;
+      border-bottom: 3px solid #E8491D;
+    }
+
+    .top-header .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-section img { height: 55px; width: auto; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .header-info {
+      text-align: right;
+      color: #ccc;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .header-info .address {
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .header-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #E8491D;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .header-phone svg {
+      width: 20px;
+      height: 20px;
+      fill: #E8491D;
+    }
+
+    .header-socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-socials a {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      transition: all 0.3s;
+    }
+
+    .header-socials a:hover {
+      background: #E8491D;
+      transform: translateY(-2px);
+    }
+
+    .header-socials svg { width: 18px; height: 18px; fill: white; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #E8491D 0%, #1a1a1a 70%);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #E8491D, #ff7043, #E8491D);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .hero p {
+      font-size: 18px;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    /* ── Main ── */
+    .main-container {
+      max-width: 1000px;
+      margin: -25px auto 40px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .card-header {
+      background: #1a1a1a;
+      color: white;
+      padding: 18px 25px;
+      border-left: 4px solid #E8491D;
+    }
+
+    .card-header h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-body { padding: 25px; }
+
+    /* ── Invoice Summary ── */
+    .invoice-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .invoice-summary .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .invoice-summary .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #999;
+      letter-spacing: 0.5px;
+    }
+
+    .invoice-summary .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .invoice-summary .info-value.total {
+      font-family: 'Oswald', sans-serif;
+      font-size: 28px;
+      color: #E8491D;
+      font-weight: 700;
+    }
+
+    /* ── PDF Viewer ── */
+    .pdf-viewer {
+      width: 100%;
+      height: 700px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      background: #f0f0f0;
+    }
+
+    .pdf-fallback {
+      text-align: center;
+      padding: 50px 30px;
+      background: #fafafa;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .pdf-fallback p {
+      margin-bottom: 18px;
+      color: #555;
+      font-size: 15px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Roboto Condensed', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: #1a1a1a;
+      color: white;
+      border: 2px solid #333;
+    }
+
+    .btn-primary:hover {
+      background: #E8491D;
+      border-color: #E8491D;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(232, 73, 29, 0.3);
+    }
+
+    .btn-pay {
+      background: #E8491D;
+      color: white;
+      font-size: 18px;
+      padding: 18px 45px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(232, 73, 29, 0.3);
+    }
+
+    .btn-pay:hover {
+      background: #d43a10;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(232, 73, 29, 0.4);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .actions .btn { flex: 1; }
+
+    /* ── Payment Section ── */
+    .payment-section {
+      text-align: center;
+      padding: 40px 25px;
+      background: linear-gradient(135deg, #fff8f6 0%, #fff 100%);
+      border-radius: 10px;
+      border: 2px solid rgba(232, 73, 29, 0.15);
+    }
+
+    .payment-section h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+    }
+
+    .payment-section p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .payment-section .payment-icons {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Paid Banner ── */
+    .paid-banner {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      border-radius: 10px;
+      border: 2px solid #4caf50;
+      display: none;
+    }
+
+    .paid-banner h3 {
+      color: #2e7d32;
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .paid-banner p { color: #555; font-size: 15px; }
+
+    /* ── Loading ── */
+    .loading {
+      text-align: center;
+      padding: 80px 30px;
+    }
+
+    .loading .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid #eee;
+      border-top: 4px solid #E8491D;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading p { color: #888; font-size: 15px; }
+
+    /* ── Error ── */
+    .error-state {
+      text-align: center;
+      padding: 80px 30px;
+    }
+
+    .error-state h3 {
+      color: #E8491D;
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .error-state p {
+      color: #555;
+      font-size: 15px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #1a1a1a;
+      color: #ccc;
+      padding: 50px 20px 25px;
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-section h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+
+    .footer-section p, .footer-section li {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #aaa;
+    }
+
+    .footer-section ul { list-style: none; }
+
+    .footer-section a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover { color: #E8491D; }
+
+    .footer-hours {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2px 15px;
+      font-size: 13px;
+    }
+
+    .footer-hours .day { color: #ccc; font-weight: 600; }
+    .footer-hours .time { color: #aaa; text-align: right; }
+
+    .footer-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      color: #E8491D;
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .footer-phone svg { width: 18px; height: 18px; fill: #E8491D; }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      transition: all 0.3s;
+    }
+
+    .footer-socials a:hover {
+      background: #E8491D;
+      transform: translateY(-2px);
+    }
+
+    .footer-socials svg { width: 18px; height: 18px; fill: #fff; }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .top-header .container { flex-direction: column; gap: 12px; text-align: center; }
+      .header-right { flex-direction: column; gap: 10px; }
+      .header-info { text-align: center; }
+      .hero h1 { font-size: 28px; letter-spacing: 1px; }
+      .hero p { font-size: 15px; }
+      .invoice-summary { grid-template-columns: 1fr; }
+      .pdf-viewer { height: 450px; }
+      .actions { flex-direction: column; }
+      .card-body { padding: 18px; }
+      .footer-container { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+      .footer-hours { justify-content: center; max-width: 250px; margin: 0 auto; }
+      .footer-phone { justify-content: center; }
+      .footer-socials { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 35px 15px; }
+      .hero h1 { font-size: 24px; }
+      .card-header { padding: 15px 18px; }
+      .card-header h2 { font-size: 17px; }
+      .card-body { padding: 15px; }
+      .btn { padding: 12px 18px; font-size: 14px; }
+      .btn-pay { font-size: 16px; padding: 16px 30px; }
+      .pdf-viewer { height: 350px; }
+      .logo-section img { height: 45px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="top-header">
+    <div class="container">
+      <div class="logo-section">
+        <img src="media-mathias-sports-hero-logo.webp" alt="Mathias Marine Sports">
+      </div>
+      <div class="header-right">
+        <div class="header-info">
+          <div class="address">874 A Chemin des Patriotes<br>Saint-Mathias-Sur-Richelieu (QC) J3L 6A2</div>
+        </div>
+        <div class="header-phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          438 315-0968
+        </div>
+        <div class="header-socials">
+          <a href="https://www.facebook.com/marinasaintmathias/" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/mathias_marine/" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Mathiasmarinesports" target="_blank" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@mathias__marine" target="_blank" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Votre Facture</h1>
+      <p id="hero-subtitle">Consultez votre facture et proc&eacute;dez au paiement en ligne</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+
+    <!-- Loading -->
+    <div class="card" id="loading-card">
+      <div class="card-body">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Chargement de votre facture...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="card" id="error-card" style="display: none;">
+      <div class="card-body">
+        <div class="error-state">
+          <h3>Facture introuvable</h3>
+          <p>Le lien utilis&eacute; est invalide ou a expir&eacute;. Veuillez contacter Mathias Marine Sports au 438 315-0968 pour obtenir un nouveau lien.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice content -->
+    <div id="invoice-content" style="display: none;">
+
+      <!-- Summary -->
+      <div class="card">
+        <div class="card-header">
+          <h2>D&eacute;tails de la facture</h2>
+        </div>
+        <div class="card-body">
+          <div class="invoice-summary">
+            <div class="info-item">
+              <span class="info-label">No Facture</span>
+              <span class="info-value" id="invoice-number">&mdash;</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Date</span>
+              <span class="info-value" id="invoice-date">&mdash;</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Client</span>
+              <span class="info-value" id="invoice-client">&mdash;</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Montant Total</span>
+              <span class="info-value total" id="invoice-total">&mdash;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Viewer -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Facture</h2>
+        </div>
+        <div class="card-body">
+          <iframe id="pdf-iframe" class="pdf-viewer" src="" frameborder="0"></iframe>
+
+          <div id="pdf-fallback" class="pdf-fallback">
+            <p>Impossible d'afficher le PDF dans le navigateur.</p>
+            <button class="btn btn-primary" onclick="openPDF()">Ouvrir la facture</button>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" onclick="openPDF()">
+              Ouvrir dans un nouvel onglet
+            </button>
+            <button class="btn btn-primary" onclick="downloadPDF()">
+              T&eacute;l&eacute;charger la facture
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="card" id="payment-card">
+        <div class="card-header">
+          <h2>Paiement</h2>
+        </div>
+        <div class="card-body">
+          <div class="paid-banner" id="paid-banner">
+            <h3>&#10003; Paiement re&ccedil;u</h3>
+            <p>Merci! Votre paiement a &eacute;t&eacute; trait&eacute; avec succ&egrave;s.</p>
+          </div>
+
+          <div class="payment-section" id="payment-cta">
+            <h3>Proc&eacute;der au paiement</h3>
+            <p>Cliquez sur le bouton ci-dessous pour payer votre facture de mani&egrave;re s&eacute;curis&eacute;e via Stripe.</p>
+            <button class="btn btn-pay" onclick="goToPayment()">
+              Payer maintenant
+            </button>
+            <div class="payment-icons">
+              Paiement s&eacute;curis&eacute; par Stripe &mdash; Visa, Mastercard, Amex accept&eacute;s
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Nous Joindre</h4>
+        <p>874 A Chemin des Patriotes<br>Saint-Mathias-Sur-Richelieu,<br>Qu&eacute;bec J3L 6A2</p>
+        <div class="footer-phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          438 315-0968
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/marinasaintmathias/" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/mathias_marine/" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Mathiasmarinesports" target="_blank" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@mathias__marine" target="_blank" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Heures d'ouverture</h4>
+        <div class="footer-hours">
+          <span class="day">Lundi :</span><span class="time">9h00 - 17h00</span>
+          <span class="day">Mardi :</span><span class="time">9h00 - 17h00</span>
+          <span class="day">Mercredi :</span><span class="time">9h00 - 17h00</span>
+          <span class="day">Jeudi :</span><span class="time">9h00 - 17h00</span>
+          <span class="day">Vendredi :</span><span class="time">9h00 - 17h00</span>
+          <span class="day">Samedi :</span><span class="time">9h00 - 13h00</span>
+          <span class="day">Dimanche :</span><span class="time">Ferm&eacute;</span>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Mathias Marine Sports</h4>
+        <p>Concessionnaire de bateaux et sports motoris&eacute;s depuis 1989.</p>
+        <p style="margin-top: 12px;"><a href="https://mathiassports.com" target="_blank">mathiassports.com</a></p>
+        <p><a href="https://mathiasmarine.com" target="_blank">mathiasmarine.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Mathias Marine Sports. Tous droits r&eacute;serv&eacute;s.</p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    const INVOICE_PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/facture-pdf';
+    const INVOICE_INFO_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/facture-info';
+
+    const pdfUrl = token ? `${INVOICE_PDF_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
+    let checkoutUrl = params.get('checkout') || '';
+
+    async function init() {
+      if (!token) {
+        showError();
+        return;
+      }
+
+      try {
+        const resp = await fetch(`${INVOICE_INFO_ENDPOINT}?token=${encodeURIComponent(token)}`);
+        if (!resp.ok) throw new Error('not found');
+        const data = await resp.json();
+
+        document.getElementById('invoice-number').textContent = data.invoice_number || '\u2014';
+        document.getElementById('invoice-date').textContent = data.date || '\u2014';
+        document.getElementById('invoice-client').textContent = data.client_name || '\u2014';
+        document.getElementById('invoice-total').textContent = data.total ? `${data.total} $` : '\u2014';
+
+        if (data.checkout_url) checkoutUrl = data.checkout_url;
+
+        if (data.status === 'paid') {
+          document.getElementById('payment-cta').style.display = 'none';
+          document.getElementById('paid-banner').style.display = 'block';
+          document.getElementById('hero-subtitle').textContent = 'Cette facture a \u00e9t\u00e9 pay\u00e9e. Merci!';
+        }
+
+        loadPDF();
+        document.getElementById('loading-card').style.display = 'none';
+        document.getElementById('invoice-content').style.display = 'block';
+
+      } catch (e) {
+        try {
+          const testResp = await fetch(pdfUrl, { method: 'HEAD' });
+          if (testResp.ok) {
+            loadPDF();
+            document.getElementById('loading-card').style.display = 'none';
+            document.getElementById('invoice-content').style.display = 'block';
+          } else {
+            showError();
+          }
+        } catch {
+          showError();
+        }
+      }
+    }
+
+    function loadPDF() {
+      const iframe = document.getElementById('pdf-iframe');
+      iframe.src = pdfUrl;
+      iframe.onerror = function() {
+        iframe.style.display = 'none';
+        document.getElementById('pdf-fallback').style.display = 'block';
+      };
+    }
+
+    function showError() {
+      document.getElementById('loading-card').style.display = 'none';
+      document.getElementById('error-card').style.display = 'block';
+    }
+
+    function openPDF() {
+      if (pdfUrl) window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    function downloadPDF() {
+      if (pdfUrl) {
+        const a = document.createElement('a');
+        a.href = pdfUrl;
+        a.download = '';
+        a.click();
+      }
+    }
+
+    function goToPayment() {
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        alert('Le lien de paiement n\'est pas encore disponible. Veuillez r\u00e9essayer dans quelques instants.');
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
