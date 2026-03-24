@@ -1,0 +1,112 @@
+{
+  "clients": [
+    {
+      "PKNum": 44962,
+      "Nom": "Quirion",
+      "Prenom": "David",
+      "Adresse": "",
+      "Ville": "",
+      "FKProvince": "QC",
+      "CodePostal": "",
+      "TelCellulaire": "",
+      "TelMaison": "5148247192",
+      "EMail": "n/a",
+      "Langue": 0
+    },
+    {
+      "PKNum": 57725,
+      "Nom": "Trudel",
+      "Prenom": "Francois",
+      "Adresse": "195 Ch. de la Rabastaliere O",
+      "Ville": "St-Bruno",
+      "FKProvince": "QC",
+      "CodePostal": "J3V 1Z3",
+      "TelCellulaire": "5148846099",
+      "TelMaison": "5148846099",
+      "EMail": "francois.trudel@pvp.ca",
+      "Langue": 0
+    },
+    {
+      "PKNum": 61856,
+      "Nom": "Adam",
+      "Prenom": "Robert",
+      "Adresse": "315 Rue Mapplewood",
+      "Ville": "Rosemere",
+      "FKProvince": "QC",
+      "CodePostal": "J7A 1V1",
+      "TelCellulaire": "4506211683",
+      "TelMaison": "4506211683",
+      "EMail": "robert.adam.1@videotron.ca",
+      "Langue": 0
+    }
+  ],
+  "jobs": [
+    {
+      "PKNoFacture": 597148,
+      "PKNoJob": 1,
+      "FKNoClient": 44962,
+      "NoSerie": "SN1EEC8R2LC698753",
+      "Description": "Facture pièces #597148",
+      "DateOuverture": "2022-11-15 11:58:35",
+      "DateFermeture": "2022-11-15 11:59:53"
+    },
+    {
+      "PKNoFacture": 618580,
+      "PKNoJob": 1,
+      "FKNoClient": 57725,
+      "NoSerie": "56KDSDBH9P3009823",
+      "Description": "Facture pièces #618580",
+      "DateOuverture": "2024-03-28 14:05:23",
+      "DateFermeture": "2024-04-26 16:56:47"
+    },
+    {
+      "PKNoFacture": 116037,
+      "PKNoJob": 1,
+      "FKNoClient": 61856,
+      "NoSerie": "PNYUSG7BD818",
+      "Description": "ENTRÉE D'ENTREPOSAGE INTERIEUR - BATEAU SUR REMORQUE",
+      "DateOuverture": "2025-04-09 10:05:42",
+      "DateFermeture": "2025-06-06 14:27:26"
+    },
+    {
+      "PKNoFacture": 116037,
+      "PKNoJob": 90,
+      "FKNoClient": 61856,
+      "NoSerie": "PNYUSG7BD818",
+      "Description": "-POLISSAGE/COMPOUND - SOUS-TRAITANCE",
+      "DateOuverture": "2025-04-09 10:05:42",
+      "DateFermeture": "2025-06-06 14:27:26"
+    }
+  ],
+  "vehicles": [
+    {
+      "PKNoSerie": "56KDSDBH9P3009823",
+      "MarqueDescFra": "INDIAN",
+      "Modele": "N23DSDBHCV",
+      "Description": "SPORT CHIEF DARK HORSE",
+      "Annee": 2023,
+      "NoClient": 57725
+    },
+    {
+      "PKNoSerie": "PNYUSG7BD818",
+      "MarqueDescFra": "STINGRAY",
+      "Modele": "USED",
+      "Description": "LR250",
+      "Annee": 2018,
+      "NoClient": 61856
+    },
+    {
+      "PKNoSerie": "SN1EEC8R2LC698753",
+      "MarqueDescFra": "POLARIS",
+      "Modele": "USED",
+      "Description": "SNO-20 850 SB ASSAULT 144 SCS",
+      "Annee": 2020,
+      "NoClient": 44962
+    }
+  ],
+  "stats": {
+    "clients": 3,
+    "jobs": 4,
+    "vehicles": 3
+  }
+}
