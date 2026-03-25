@@ -749,8 +749,8 @@
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
 
-    const INVOICE_PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/facture-pdf';
-    const INVOICE_INFO_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/facture-info';
+    const INVOICE_PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-pdf';
+    const INVOICE_INFO_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-info';
 
     const pdfUrl = token ? `${INVOICE_PDF_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
     let checkoutUrl = params.get('checkout') || '';
