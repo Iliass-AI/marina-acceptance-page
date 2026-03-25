@@ -617,8 +617,8 @@
     <!-- Invoice content -->
     <div id="invoice-content" style="display: none;">
 
-      <!-- Summary -->
-      <div class="card">
+      <!-- Summary (hidden until info endpoint is ready) -->
+      <div class="card" id="summary-card" style="display:none;">
         <div class="card-header">
           <h2>D&eacute;tails de la facture</h2>
         </div>
@@ -644,25 +644,19 @@
         </div>
       </div>
 
-      <!-- PDF Viewer -->
+      <!-- PDF Actions -->
       <div class="card">
         <div class="card-header">
-          <h2>Facture</h2>
+          <h2>Votre Facture</h2>
         </div>
-        <div class="card-body">
-          <iframe id="pdf-iframe" class="pdf-viewer" src="" frameborder="0"></iframe>
-
-          <div id="pdf-fallback" class="pdf-fallback">
-            <p>Impossible d'afficher le PDF dans le navigateur.</p>
-            <button class="btn btn-primary" onclick="openPDF()">Ouvrir la facture</button>
-          </div>
-
-          <div class="actions">
-            <button class="btn btn-primary" onclick="openPDF()">
-              Ouvrir dans un nouvel onglet
+        <div class="card-body" style="text-align:center;padding:40px 20px;">
+          <p style="font-size:16px;color:#555;margin-bottom:24px;">Cliquez sur le bouton ci-dessous pour consulter votre facture en format PDF.</p>
+          <div class="actions" style="justify-content:center;gap:16px;">
+            <button class="btn btn-primary" onclick="openPDF()" style="font-size:16px;padding:14px 36px;">
+              &#128196; Voir la facture
             </button>
-            <button class="btn btn-primary" onclick="downloadPDF()">
-              T&eacute;l&eacute;charger la facture
+            <button class="btn btn-primary" onclick="downloadPDF()" style="background:#555;font-size:14px;padding:12px 28px;">
+              &#11015; T&eacute;l&eacute;charger
             </button>
           </div>
         </div>
@@ -748,64 +742,21 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
-
-    const INVOICE_PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-pdf';
-    const INVOICE_INFO_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-info';
-
-    const pdfUrl = token ? `${INVOICE_PDF_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
+    const PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-pdf';
+    const pdfUrl = token ? `${PDF_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
     let checkoutUrl = params.get('checkout') || '';
 
-    async function init() {
+    function init() {
       if (!token) {
         showError();
         return;
       }
-
-      try {
-        const resp = await fetch(`${INVOICE_INFO_ENDPOINT}?token=${encodeURIComponent(token)}`);
-        if (!resp.ok) throw new Error('not found');
-        const data = await resp.json();
-
-        document.getElementById('invoice-number').textContent = data.invoice_number || '\u2014';
-        document.getElementById('invoice-date').textContent = data.date || '\u2014';
-        document.getElementById('invoice-client').textContent = data.client_name || '\u2014';
-        document.getElementById('invoice-total').textContent = data.total ? `${data.total} $` : '\u2014';
-
-        if (data.checkout_url) checkoutUrl = data.checkout_url;
-
-        if (data.status === 'paid') {
-          document.getElementById('payment-cta').style.display = 'none';
-          document.getElementById('paid-banner').style.display = 'block';
-          document.getElementById('hero-subtitle').textContent = 'Cette facture a \u00e9t\u00e9 pay\u00e9e. Merci!';
-        }
-
-        loadPDF();
-        document.getElementById('loading-card').style.display = 'none';
-        document.getElementById('invoice-content').style.display = 'block';
-
-      } catch (e) {
-        try {
-          const testResp = await fetch(pdfUrl, { method: 'HEAD' });
-          if (testResp.ok) {
-            loadPDF();
-            document.getElementById('loading-card').style.display = 'none';
-            document.getElementById('invoice-content').style.display = 'block';
-          } else {
-            showError();
-          }
-        } catch {
-          showError();
-        }
-      }
-    }
-
-    function loadPDF() {
-      const iframe = document.getElementById('pdf-iframe');
-      iframe.src = pdfUrl;
-      iframe.onerror = function() {
-        iframe.style.display = 'none';
-        document.getElementById('pdf-fallback').style.display = 'block';
-      };
+      // Token exists — show invoice content directly, skip fetch (avoids CORS)
+      document.getElementById('loading-card').style.display = 'none';
+      document.getElementById('invoice-content').style.display = 'block';
+      // Hide summary card since we don't have info endpoint yet
+      const summaryCards = document.querySelectorAll('.card');
+      // Keep PDF and payment cards visible
     }
 
     function showError() {
@@ -822,7 +773,9 @@
         const a = document.createElement('a');
         a.href = pdfUrl;
         a.download = '';
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
       }
     }
 
