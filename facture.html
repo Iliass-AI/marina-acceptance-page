@@ -649,15 +649,17 @@
         <div class="card-header">
           <h2>Votre Facture</h2>
         </div>
-        <div class="card-body" style="text-align:center;padding:40px 20px;">
-          <p style="font-size:16px;color:#555;margin-bottom:24px;">Cliquez sur le bouton ci-dessous pour consulter votre facture en format PDF.</p>
-          <div class="actions" style="justify-content:center;gap:16px;">
-            <button class="btn btn-primary" onclick="openPDF()" style="font-size:16px;padding:14px 36px;">
-              &#128196; Voir la facture
-            </button>
-            <button class="btn btn-primary" onclick="downloadPDF()" style="background:#555;font-size:14px;padding:12px 28px;">
-              &#11015; T&eacute;l&eacute;charger
-            </button>
+        <div class="card-body">
+          <div class="contract-section" style="text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(251,209,22,0.05) 0%,rgba(0,0,0,0.02) 100%);border-radius:12px;">
+            <p style="font-size:16px;color:#555;margin-bottom:24px;">Consultez votre facture en format PDF ou t&eacute;l&eacute;chargez-la.</p>
+            <div class="actions" style="justify-content:center;gap:16px;margin-bottom:0;">
+              <button class="btn btn-primary" onclick="openPDF()" style="font-size:16px;padding:14px 36px;">
+                &#128196; Voir la facture
+              </button>
+              <button class="btn btn-primary" onclick="downloadPDF()" style="background:linear-gradient(135deg,#555 0%,#1a1a1a 100%);font-size:14px;padding:12px 28px;">
+                &#11015; T&eacute;l&eacute;charger
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -676,7 +678,7 @@
           <div class="payment-section" id="payment-cta">
             <h3>Proc&eacute;der au paiement</h3>
             <p>Cliquez sur le bouton ci-dessous pour payer votre facture de mani&egrave;re s&eacute;curis&eacute;e via Stripe.</p>
-            <button class="btn btn-pay" onclick="goToPayment()">
+            <button class="btn btn-pay" id="pay-btn" onclick="goToPayment()">
               Payer maintenant
             </button>
             <div class="payment-icons">
@@ -742,21 +744,22 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
+
+    // Endpoints
     const PDF_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/ai-facturation-get-pdf';
+    const STRIPE_ENDPOINT = 'https://mathiasmarinesports.app.n8n.cloud/webhook/get-stripe-link';
+
+    // Build PDF URL from token
     const pdfUrl = token ? `${PDF_ENDPOINT}?token=${encodeURIComponent(token)}` : '';
-    let checkoutUrl = params.get('checkout') || '';
 
     function init() {
       if (!token) {
         showError();
         return;
       }
-      // Token exists — show invoice content directly, skip fetch (avoids CORS)
+      // Token present — show invoice content
       document.getElementById('loading-card').style.display = 'none';
       document.getElementById('invoice-content').style.display = 'block';
-      // Hide summary card since we don't have info endpoint yet
-      const summaryCards = document.querySelectorAll('.card');
-      // Keep PDF and payment cards visible
     }
 
     function showError() {
@@ -764,26 +767,51 @@
       document.getElementById('error-card').style.display = 'block';
     }
 
+    // Open PDF in new tab (same pattern as accept-terms.html)
     function openPDF() {
-      if (pdfUrl) window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    function downloadPDF() {
-      if (pdfUrl) {
-        const a = document.createElement('a');
-        a.href = pdfUrl;
-        a.download = '';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+      if (!pdfUrl) {
+        alert("URL du PDF introuvable.");
+        return;
       }
+      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
     }
 
-    function goToPayment() {
-      if (checkoutUrl) {
-        window.location.href = checkoutUrl;
-      } else {
-        alert('Le lien de paiement n\'est pas encore disponible. Veuillez r\u00e9essayer dans quelques instants.');
+    // Download PDF
+    function downloadPDF() {
+      if (!pdfUrl) {
+        alert("URL du PDF introuvable.");
+        return;
+      }
+      window.open(pdfUrl, '_blank');
+    }
+
+    // Stripe payment — call webhook to get Stripe checkout link, then redirect
+    async function goToPayment() {
+      const btn = document.getElementById('pay-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Redirection en cours...';
+
+      try {
+        const response = await fetch(STRIPE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Erreur lors de la cr\u00e9ation du lien de paiement. Veuillez r\u00e9essayer.');
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }
+      } catch (e) {
+        alert('Erreur de connexion. Veuillez r\u00e9essayer.');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
       }
     }
 
